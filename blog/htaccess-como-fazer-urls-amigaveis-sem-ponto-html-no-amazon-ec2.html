@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width"/>
+	<title>.HTACCESS - Como fazer URLs amigáveis (sem .html) no Amazon EC2 | Daniela Duarte - Desenvolvedor(a) Web Freelancer</title>
+	<meta content="Aprenda a fazer URLs amigáveis (sem .html) no Amazon EC2"
+	name="description"/>
+	<link rel="stylesheet" href="../css/style.css" />
+	<script language="JavaScript" type="text/javascript" src="../libraries/jquery-2.2.4.min.js"></script>
+
+	<script language="JavaScript" type="text/javascript" src="../javascript/javascript.js"></script>
+	
+	<link href="https://fonts.googleapis.com/css?family=Raleway" type="text/css" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Alice|Oswald" rel="stylesheet"/>
+	<link rel="shortcut icon" href="../imagens/favoricon.png"/>
+	
+	<script>
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+	/*
+	var disqus_config = function () {
+	this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+	this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+	*/
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = 'https://danieladuarte.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+</head>
+
+<body>
+	
+	<nav>
+		<div id="pagina">
+			<div class="barra-menu">
+				<a href="#" id="btn-drop" class="btn-menu aln-centro">Menu</a>	
+					<ul id="submenu" class="lista-menu aln-centro">
+						<li><a href="/">Início</a></li>
+						<li><a href="/#servicos">Serviços</a></li>
+						<li><a href="../sobre-mim">Sobre mim</a></li>
+						<li><a href="../blog">Blog</a></li>
+						<li><a href="../fale-comigo">Fale comigo</a></li>
+					</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<figure class="foto-blog">
+			<img src="../imagens/url.jpg"/>
+				<figcaption>
+					<h1>.HTACCESS - Como fazer URLs amigáveis (sem .html) no Amazon EC2</h1>
+				</figcaption>
+	</figure>
+		
+	<div class="estrutura-blog">
+		<div class="conteudo-blog">
+			<p>Aprendi HTML no 1º ano do ensino médio, sou técnica em informática desde 2013, 
+			e recém formada em engenharia da computação, porém todos esses anos nunca tinha 
+			colocado um site no ar.</p>
+			<br>
+			<p>Então montei meu site, em um mês. E como gosto de ter uma boa base, 
+			não gosto de utilizar frameworks, plugins, e outras coisas que facilitam 
+			a vida do programador, podem me chamar de burra, mas prefiro aprender fazendo 
+			as coisas do zero para realmente entender como tudo funciona.</p>
+			<br>
+			<p>Hospedei meu site no EC2 da Amazon, e configurar isso é foda para quem 
+			não sabe nada de servidores, assim como eu, então cada dia estou aprendendo 
+			um pouco sobre a ferramenta.</p>
+			<br>
+			<p>Desde que lancei o site, estava implicando com isso:</p><br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/url-com-ponto-html-no-final.jpg"/>
+			</div>
+			<br>
+			<p>Minhas URLs com .html no final, estava me dando nos nervos, 
+			eu pensava: como alguém vai pedir para eu fazer um site com essa 
+			URL feia desse jeito, parece que nem sabe fazer site :O
+			</p>
+			<br>
+			<p>Somente agora tive tempo de começar as modificações no meu site, 
+			e essa era a primeira da lista, foi difícil saber o que procurar 
+			para transformar minha URL em uma URL amigável, como essa:</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/url-sem-ponto-html-no-final.jpg"/>
+			</div>
+			<br>
+			<p>Mas finalmente consegui, vamos ao passo-a-passo:</p>
+			<br>
+			<h2>Primeiro você precisa saber como essa configuração se chama: HTACCESS</h2>
+			<p>
+				O HTACCESS é um arquivo de configuração do servidor Apache que tem diversas 
+				funcionalidades, e uma delas é a customização de URLs amigáveis, 
+				que será abordado nesse artigo.
+			</p>
+			<br>
+			<h2>Agora a parte da configuração</h2>
+			<h2>Configuração do HTTPD</h2>
+			<p>
+				1. Acesse o servidor via SSH<br>
+						Eu utilizo o PUTTY no Windows para acessar o servidor, 
+						se quiserem saber como configurá-lo me fale nos comentários. 
+						Como já está salva a configuração, seleciono AWS e clico em OPEN
+						<br><br>
+							<div class="imagem-blog">
+							<img class="imagem-class" src="../imagens/putty-configuration.jpg"/>
+							</div>
+			</p>		
+			<br>
+			<p>2.	Será aberto o terminal SSH, acesse como administrador:
+			</p>
+			<br>
+			<p>
+				<div class="codigo">
+				<code>
+				sudo su
+				</code>
+				</div>
+			
+			</p>
+			<br>
+			<p>3.	Entre na pasta de configurações:</p>
+			<br>
+			<p>
+				<div class="codigo">
+				<code>
+				cd /etc/httpd/conf
+				</code>
+				</div>
+			
+			</p>
+			<br>
+			<p>4.	Abra o arquivo de configuração (httpd.conf) no VI:</p>
+			<br>
+			<p>
+				<div class="codigo">
+				<code>
+				vi httpd.conf
+				</code>
+				</div>
+			
+			</p>
+			<br>
+			<p>5.	Será exibido o arquivo httpd.conf no editor VI para sua edição:</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/arquivo-httpd-aberto-no-vi.jpg"/>
+			</div>
+			<br>
+			<p>7.	Procure por esse trecho de código: "AllowOverride None" e altere para "AllowOverride All", 
+			conforme mostrado abaixo:</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/tela-com-comando-allowoverride-all.jpg"/>
+			</div>
+			<br>
+			<p>8.	Após alteração, para sair e salvar aperte ESC, digite :wq e dê ENTER</p>
+			<br>
+			<br>
+			<p>9.	Você voltará para tela de inicio</p>
+			<br>
+			<br>
+			<p>10.	Agora é preciso reinicar o HTTPD, digite:</p>
+			<br>
+			<p>
+				<div class="codigo">
+				<code>
+				service httpd restart
+				</code>
+				</div>
+			
+			</p>
+			<br>
+			<p>11.	Aparecerá que o servidor foi reiniciado com sucesso:</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/mensagem-de-httpd-reiniciado-com-sucesso.jpg"/>
+			</div>
+			<br>
+			
+			
+			<h2>Criando o HTACCESS</h2>
+			<br>
+			<p>Agora que a configuração foi realizada, temos que criar o arquivo HTACCESS:</p>
+			<br>
+			<p>1. Ainda no terminal, entre na pasta html </p>
+			<br>
+			<p>
+				<div class="codigo">
+				<code>
+				cd /var/www/html
+				</code>
+				</div>
+			
+			</p>
+			<br>
+			<p>2. Digite o seguinte trecho para entrar ou criar 
+			o arquivo .htaccess </p>
+			<br>
+			<p>
+				<div class="codigo">
+				<code>
+				vi .htaccess
+				</code>
+				</div>
+			
+			</p>
+			<br>
+			<p>3. Digite o seguinte código:</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/arquivo-htaccess.jpg"/>
+			</div>
+			<br>
+			<br>
+			<p>4. Após a digitação do código, aperte ESC, digite :wq e dê ENTER, para sair e salvar
+			o arquivo.</p>
+			<br>
+			<h2>Finalizando</h2>
+			<p>Agora só configurar as urls no HTML para o redirecionamento sem o .html, conforme mostrado abaixo:</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/configuracao-do-menu-no-html.jpg"/>
+			</div>
+			<br>	
+			<p>E seu site funcionará sem o .html</p>
+			<br>
+			<div class="imagem-blog">
+			<img class="imagem-class" src="../imagens/site-sem-o-ponto-html.jpg"/>
+			</div>
+			
+			
+			<br><br>
+		
+			<p>...</p>
+			<p>O que achou desse post, quer ver mais conteúdos parecidos com esse no blog?
+			Sabia configurar o HTACCESS? Deixe seu comentário e se ficou alguma dúvida só postar nos comentários ;)</p>
+
+
+			<p>...</p>
+			
+			<br>
+			<p>Daniela Duarte, 23 anos, paulista, desenvolvedora web freelancer, 
+			técnica em informática com ênfase em programação, estudante de engenharia 
+			da computação, apaixonada por tecnologia, empreendedorismo, rosa, chocolates, 
+			músicas, parques, viajens, praias, coelhos e pandas.</p>
+
+			<br>
+			<p>Se quiser receber meus textos e novidades por e-mail, basta se 
+			<a href="http://eepurl.com/deOF85" target="_blank">
+			cadastrar aqui</a></p>	
+			
+			<br>
+			<div id="disqus_thread"></div>
+		</div>
+	</div>
+	
+	<!-- Begin MailChimp Signup Form -->
+	<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+		/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+		   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+	</style>
+	<div id="mc_embed_signup">
+	<form action="https://danieladuarte.us17.list-manage.com/subscribe/post?u=99d5a979cddef03e25e111bb4&amp;id=b9fbd70afe" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+		<div id="mc_embed_signup_scroll">
+		<label for="mce-EMAIL">Cadastre-se para receber novidades e publicações do blog por e-mail</label>
+		<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Coloque seu melhor e-mail" required>
+		<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+		<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_99d5a979cddef03e25e111bb4_b9fbd70afe" tabindex="-1" value=""></div>
+		<div class="clear"><input type="submit" value="Cadastrar" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+		</div>
+	</form>
+	</div>
+	<!--End mc_embed_signup-->
+	
+	<footer>
+		falecom@danieladuarte.com.br | 2012-2018 | Feito com 
+		<img src="../imagens/coracao.png" title="Coração" width="20em" height="20em" alt="Coração"/> em São Paulo (SP) | 
+		<a href="https://www.facebook.com/danieladuarteng" target="_blank">
+			<img src="../imagens/facebook.png"  title="Facebook" width="20em" height="20em" alt="Facebook" target="_blank"/>
+		</a>
+
+		<a href="https://www.instagram.com/danieladuarteng" target="_blank">
+			<img src="../imagens/instagram.png"  title="Instagram" width="20em" height="20em" alt="Instagram"  target="_blank"/>
+		</a>
+
+		<a href="https://www.linkedin.com/in/danieladuarteng" target="_blank">
+			<img src="../imagens/linkedin.png"  title="Linkedin" width="20em" height="20em" alt="Linkedin"  target="_blank"/>
+		</a>
+
+		<a href="https://www.youtube.com/DanielaDuarteENG" target="_blank">
+			<img src="../imagens/youtube.png"  title="Youtube" width="20em" height="20em" alt="Youtube"  target="_blank"/>
+		</a>
+		
+		<a href="https://www.twitter.com/danieladuarteng"target="_blank">
+			<img src="../imagens/twitter.png"  title="Twitter" width="20em" height="20em" alt="Twitter"  target="_blank"/>
+		</a>
+	</footer>
+</body>
+</html>
