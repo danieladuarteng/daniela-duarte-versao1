@@ -32,4 +32,4 @@ This is a first version released on November 01, 2017
 
 Second version released on May 15, 2018
 - [Repository](https://github.com/danieladuarteng/danieladuarte.github.io)
-- [Website](www.danieladuarte.com.br)
+- [Website](http://www.danieladuarte.com.br/)
