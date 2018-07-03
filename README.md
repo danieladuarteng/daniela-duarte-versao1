@@ -24,7 +24,7 @@ The .htaccess file works to remove the .html of url
 
 ### Version 1
 
-This is a first version released on November 01, 2017
+This repository is the first version released on November 01, 2017
 - [Repository](https://github.com/danieladuarteng/daniela-duarte-version-1)
 - [Website](https://danieladuarteng.github.io/daniela-duarte-version-1/)
 
