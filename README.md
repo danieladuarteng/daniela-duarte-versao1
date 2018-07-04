@@ -1,3 +1,4 @@
+![GitHub Logo](imagens/screenshot-site-antigo-no-mobile.png)
 # Daniela Duarte - Website V.1
 
 ## Attention
